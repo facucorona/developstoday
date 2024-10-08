@@ -21,12 +21,46 @@ app.get('/', async (req, res, next) => {
 app.get("/:id", async (req, res, next) => {
     try {
         let id = req.params.id;
-        console.log(id)
+        let total_info = [];
+
+        // console.log(id)
         if (id.length < 3) {
             let info = await fetch(`https://date.nager.at/api/v3/CountryInfo/${id}`)
                 .then(i => i.json())
-                .then(arr => res.status(200).send(arr))
+                .then(arr => /*res.status(200).send(arr)*/ total_info.push(arr))
 
+            let allFlags = await fetch(`https://countriesnow.space/api/v0.1/countries/flag/images`)
+                .then(i => i.json())
+                // .then(arr => /*res.status(200).send(arr)*/ total_info[1]=arr.data)
+                .then(arr => {
+                    arr = arr.data;
+                    arr.forEach((country) => {
+                        if (country.iso2 === id) {
+                            // countryFound = country;
+                            total_info.push(country);
+                        }
+                    })
+
+                })
+            let population = await fetch(`https://countriesnow.space/api/v0.1/countries/population`)
+                .then(i => i.json())
+
+                .then(arr => {
+                    arr = arr.data;
+                    // console.log('total_info[1]', total_info[1])
+                    arr.forEach((country) => {
+                        if (country.iso3 === total_info[0].countryCode) {
+
+                            total_info.push(country);
+                        }
+                    })
+                    // const countryFound = arr.find(population => population.iso3 === total_info[1].iso3);
+                    // total_info[2] = countryFound;
+                })
+
+            console.log('totalInfo', total_info)
+
+            res.status(200).send(total_info)
 
 
         } else {
