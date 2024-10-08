@@ -38,3 +38,18 @@ app.get("/:id", async (req, res, next) => {
 });
 
 module.exports = app;
+
+/*This endpoint should provide the following data:
+a. List of Border Countries: A list of countries that share a border with the selected country https://date.nager.at/api/v3/CountryInfo/UA
+b. Population Data: Historical population data for the country, suitable for plotting on a chart https://countriesnow.space/api/v0.1/countries/population
+c. Flag URL: A URL to the country’s flag image https://countriesnow.space/api/v0.1/countries/flag/images
+
+
+### API Documentation
+
+- **Country List API**: [Nager.Date API Documentation](https://date.nager.at/swagger/index.html)
+- **Country Info API**: [Postman Country Info API Documentation](https://documenter.getpostman.com/view/1134062/T1LJjU52)
+
+
+*/
+
