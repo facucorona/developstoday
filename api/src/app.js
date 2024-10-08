@@ -34,12 +34,19 @@ app.get("/:id", async (req, res, next) => {
                 // .then(arr => /*res.status(200).send(arr)*/ total_info[1]=arr.data)
                 .then(arr => {
                     arr = arr.data;
-                    arr.forEach((country) => {
-                        if (country.iso2 === id) {
-                            // countryFound = country;
-                            total_info.push(country);
-                        }
-                    })
+
+                    let foundFlag = (arr, id) => {
+                        return arr.find(objeto => objeto.iso2 === "mn");
+                    };
+                    let result_flag = foundFlag(arr, id)
+                    console.log('result_flag', result_flag)
+                    // arr.forEach((country) => {
+                    //     if (country.iso2 === id) {
+                    //         // countryFound = country;
+                    //         console.log('country', country)
+                    //         total_info.push(country);
+                    //     }
+                    // })
 
                 })
             let population = await fetch(`https://countriesnow.space/api/v0.1/countries/population`)
@@ -50,7 +57,7 @@ app.get("/:id", async (req, res, next) => {
                     // console.log('total_info[1]', total_info[1])
                     arr.forEach((country) => {
                         if (country.iso3 === total_info[0].countryCode) {
-
+                            console.log('country-iso3', country)
                             total_info.push(country);
                         }
                     })
