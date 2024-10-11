@@ -1,37 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import CountryDetail from './CountryDetail';
 
-function Card({ countryCode, name }) {
-    const [countryDetails, setCountryDetails] = useState(null);
-
-    // Llamada a la API solo si recibe un código de país
-    useEffect(() => {
-        if (countryCode) {
-            fetchCountryDetails(countryCode);
-        }
-    }, [countryCode]);
-
-    async function fetchCountryDetails(code) {
-        try {
-            const response = await fetch(`http://localhost:3001/${code}`);
-            const data = await response.json();
-            console.log('data', data)
-            setCountryDetails(data);
-        } catch (error) {
-            console.error('Error fetching country details:', error);
-        }
-    }
-
+function Card({ countryCode, name, flag, onClick }) {
+    // console.log('name', name)
     return (
-        <div style={cardStyle} className="card">
+        <div style={cardStyle} className="card" onClick={onClick}>
             <h2>{name}</h2>
-            {/* Si hay detalles adicionales del país, los muestra */}
-            {countryDetails && (
-                <div>
-                    <p>Common Name: {countryDetails.commonName}</p>
-                    <p>Official Name: {countryDetails.officialName}</p>
-                    <img src={countryDetails.flag} alt={`${name} flag`} />
-                </div>
-            )}
+            <CountryDetail />
+
+            {flag && <img src={flag} alt={`${name} flag`} style={flagStyle} />}
         </div>
     );
 }
@@ -43,6 +20,12 @@ const cardStyle = {
     margin: '10px',
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    cursor: 'pointer', // Cambia el cursor para indicar que es clickeable
+};
+
+const flagStyle = {
+    maxWidth: '100%',
+    height: 'auto',
 };
 
 export default Card;

@@ -1,16 +1,17 @@
-// Home.jsx
 import React, { useEffect, useState } from 'react';
-import Card from './Card'; // Importar el componente Card
+import { useNavigate } from 'react-router-dom'; // Cambia aquí
+import Card from './Card';
 
 function Home() {
     const [allCountries, setAllCountries] = useState([]);
+    const navigate = useNavigate(); // Cambia aquí
 
-    // Función asíncrona para obtener todos los países
     async function fetchAllCountries() {
         try {
             const response = await fetch('http://localhost:3001/');
             const data = await response.json();
-            setAllCountries(data); // Guardar los datos en el estado
+            setAllCountries(data);
+            console.log('home fetch :>> ', allCountries);
         } catch (error) {
             console.error('Error fetching countries:', error);
         }
@@ -20,19 +21,29 @@ function Home() {
         fetchAllCountries();
     }, []);
 
+    const handleCountryClick = (countryCode) => {
+        navigate(`/${countryCode}`); // Cambia aquí
+    };
+
     return (
         <div>
-            <h1>Countries</h1>
-            <div className="countries-list">
+            <h1>Home</h1>
+            <div style={cardsContainerStyle}>
+                {console.log('allCountries', allCountries)}
                 {allCountries.map((country, index) => (
-                    <Card key={index} name={country.name} countryCode={country.countryCode} />
+                    <Card
+                        key={index}
+                        countryCode={country.countryCode}
+                        name={country.name}
+                        flag={country.flag}
+                        onClick={() => handleCountryClick(country.countryCode)}
+                    />
                 ))}
             </div>
         </div>
     );
 }
 
-// Estilo para el contenedor de tarjetas (opcional)
 const cardsContainerStyle = {
     display: 'flex',
     flexWrap: 'wrap',
