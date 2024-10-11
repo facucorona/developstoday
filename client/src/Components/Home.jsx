@@ -11,7 +11,7 @@ function Home() {
             const response = await fetch('http://localhost:3001/');
             const data = await response.json();
             setAllCountries(data);
-            console.log('home fetch :>> ', allCountries);
+
         } catch (error) {
             console.error('Error fetching countries:', error);
         }
@@ -51,8 +51,8 @@ const cardsContainerStyle = {
     flexWrap: 'wrap',
     // width: '50%',
     justifyContent: 'space-around',
-    paddingLeft:'10%',
-    paddingRight:'10%'
+    paddingLeft: '10%',
+    paddingRight: '10%'
 
 };
 
