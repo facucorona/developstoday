@@ -1,41 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import { Line } from 'react-chartjs-2'; // Asegúrate de haber instalado chart.js y react-chartjs-2
+import { Link } from 'react-router-dom';
+
 
 function CountryDetail() {
-  const { id } = useParams(); // Obtiene el ID del país de la URL
-  const [countryDetails, setCountryDetails] = useState(null);
-  const [populationData, setPopulationData] = useState([]);
+    const { id } = useParams(); // Obtiene el ID del país de la URL
+    const [countryDetails, setCountryDetails] = useState(null);
+    const [populationData, setPopulationData] = useState([]);
 
-  useEffect(() => {
-    async function fetchCountryDetails() {
-      try {
-        const response = await fetch(`http://localhost:3001/${id}`); // Usa el id para hacer la petición
-        const data = await response.json();
-        setCountryDetails(data);
-        setPopulationData(data.populationCounts); // Ajusta según la estructura de tu respuesta
-      } catch (error) {
-        console.error('Error fetching country details:', error);
-      }
-    }
+    useEffect(() => {
+        async function fetchCountryDetails() {
+            try {
+                const response = await fetch(`http://localhost:3001/${id}`); // Usa el id para hacer la petición
+                const data = await response.json();
+                setCountryDetails(data);
+                setPopulationData(data.populationCounts);
+            } catch (error) {
+                console.error('Error fetching country details:', error);
+            }
+        }
 
-    fetchCountryDetails();
-  }, [id]);
+        fetchCountryDetails();
+    }, [id]);
 
 
 
-  return (
-    <div>
-      {countryDetails && (
-        <>
-          <h2>{countryDetails.name}</h2>
-          <img src={countryDetails.flag} alt={`${countryDetails.name} flag`} />
-          <h3>Población a lo largo del tiempo</h3>
-        
-        </>
-      )}
-    </div>
-  );
+    return (
+        <div>
+            {countryDetails && (
+                <>
+                    <h1>Country Details</h1>
+                    {console.log('countryDetails', countryDetails)}
+                    <h2>{countryDetails[1].name}</h2>
+                    <img src={countryDetails[1].flag} alt={`${countryDetails[1].name} flag`} />
+                    <h3>Border Countries</h3>
+                    {countryDetails[0].borders.map(b => {
+                        return (
+
+
+                            <h4><Link to={`/${b.countryCode}`}>{b.commonName}</Link></h4>
+
+                        )
+                    })}
+
+                </>
+            )}
+        </div>
+    );
 }
 
 export default CountryDetail;
