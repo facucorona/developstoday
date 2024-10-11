@@ -22,11 +22,10 @@ function Home() {
 
     return (
         <div>
-            <h1>Home</h1>
-            {/* Renderiza las tarjetas de los países si hay datos */}
-            <div style={cardsContainerStyle}>
+            <h1>Countries</h1>
+            <div className="countries-list">
                 {allCountries.map((country, index) => (
-                    <Card key={index} country={country} /> // Pasar la información del país al componente Card
+                    <Card key={index} name={country.name} countryCode={country.countryCode} />
                 ))}
             </div>
         </div>
