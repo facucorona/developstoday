@@ -29,17 +29,13 @@ function CountryDetail() {
         <div>
             {countryDetails && (
                 <>
-                    <h1>Country Details</h1>
-                    {console.log('countryDetails', countryDetails)}
+                    <h1>Country Details</h1>                    
                     <h2>{countryDetails[1].name}</h2>
                     <img src={countryDetails[1].flag} alt={`${countryDetails[1].name} flag`} />
                     <h3>Border Countries</h3>
                     {countryDetails[0].borders.map(b => {
                         return (
-
-
                             <h4><Link to={`/${b.countryCode}`}>{b.commonName}</Link></h4>
-
                         )
                     })}
 

@@ -26,19 +26,21 @@ function Home() {
     };
 
     return (
-        <div>
-            <h1>Home</h1>
-            <div style={cardsContainerStyle}>
-                {console.log('allCountries', allCountries)}
-                {allCountries.map((country, index) => (
-                    <Card
-                        key={index}
-                        countryCode={country.countryCode}
-                        name={country.name}
-                        flag={country.flag}
-                        onClick={() => handleCountryClick(country.countryCode)}
-                    />
-                ))}
+        <div >
+            <h1>Welcome, please select a country</h1>
+            <div >
+                <div style={cardsContainerStyle}>
+                    {/* {console.log('allCountries', allCountries)} */}
+                    {allCountries.map((country, index) => (
+                        <Card
+                            key={index}
+                            countryCode={country.countryCode}
+                            name={country.name}
+                            flag={country.flag}
+                            onClick={() => handleCountryClick(country.countryCode)}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
@@ -47,7 +49,12 @@ function Home() {
 const cardsContainerStyle = {
     display: 'flex',
     flexWrap: 'wrap',
+    // width: '50%',
     justifyContent: 'space-around',
+    paddingLeft:'10%',
+    paddingRight:'10%'
+
 };
+
 
 export default Home;
