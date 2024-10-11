@@ -23,7 +23,9 @@ function CountryDetail() {
         fetchCountryDetails();
     }, [id]);
 
-
+    let buttonStyle={
+        
+    }
 
     return (
         <div>
@@ -38,7 +40,7 @@ function CountryDetail() {
                             <h4><Link to={`/${b.countryCode}`}>{b.commonName}</Link></h4>
                         )
                     })}
-                    <Link to={`/`}><button>Go back</button></Link>
+                    <Link to={`/`}><button style={buttonStyle}>Go back</button></Link>
 
                 </>
             )}
