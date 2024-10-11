@@ -29,7 +29,7 @@ function CountryDetail() {
         <div>
             {countryDetails && (
                 <>
-                    <h1>Country Details</h1>                    
+                    <h1>Country Details</h1>
                     <h2>{countryDetails[1].name}</h2>
                     <img width={'400px'} height={'300px'} src={countryDetails[1].flag} alt={`${countryDetails[1].name} flag`} />
                     <h3>Border Countries</h3>
@@ -38,6 +38,7 @@ function CountryDetail() {
                             <h4><Link to={`/${b.countryCode}`}>{b.commonName}</Link></h4>
                         )
                     })}
+                    <Link to={`/`}><button>Go back</button></Link>
 
                 </>
             )}
