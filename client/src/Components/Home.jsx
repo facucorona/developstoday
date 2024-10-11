@@ -1,13 +1,15 @@
+// Home.jsx
 import React, { useEffect, useState } from 'react';
+import Card from './Card'; // Importar el componente Card
 
 function Home() {
     const [allCountries, setAllCountries] = useState([]);
 
-    // Definición correcta de la función asíncrona
+    // Función asíncrona para obtener todos los países
     async function fetchAllCountries() {
         try {
             const response = await fetch('http://localhost:3001/');
-            const data = await response.json()
+            const data = await response.json();
             setAllCountries(data); // Guardar los datos en el estado
         } catch (error) {
             console.error('Error fetching countries:', error);
@@ -18,19 +20,24 @@ function Home() {
         fetchAllCountries();
     }, []);
 
-    console.log('allCountries', allCountries);
-
     return (
         <div>
             <h1>Home</h1>
-            {/* Renderiza los países si hay datos */}
-            <ul>
+            {/* Renderiza las tarjetas de los países si hay datos */}
+            <div style={cardsContainerStyle}>
                 {allCountries.map((country, index) => (
-                    <li key={index}>{country.name}</li> // Asegúrate de que 'name' sea una propiedad válida
+                    <Card key={index} country={country} /> // Pasar la información del país al componente Card
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
+
+// Estilo para el contenedor de tarjetas (opcional)
+const cardsContainerStyle = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+};
 
 export default Home;
