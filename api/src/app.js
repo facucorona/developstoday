@@ -2,6 +2,7 @@ const express = require('express');
 const { json } = require("body-parser");
 const { fetch } = require("cross-fetch");
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 
 
 
-// Error catching endware.
+// Error catching cd ap .
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     const status = err.status || 500;
     const message = err.message || err;
@@ -30,7 +31,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     res.status(status).send(message);
 });
 
-module.exports = server;
+// module.exports = server;
 
 app.get('/', async (req, res, next) => {
     try {
